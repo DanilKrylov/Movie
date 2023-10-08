@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie.Models;
 using System;
@@ -17,6 +18,21 @@ namespace Movie.Controllers
         public CinemasController(Context context)
         {
             _context = context;
+        }
+
+
+
+        // GET: api/Companies
+        [Authorize]
+        [HttpGet("forCompany")]
+        public ActionResult<IEnumerable<Company>> GetCompanies()
+        {
+            var login = User.Identity.Name;
+            var companies = _context.Cinemas
+                .Include(c => c.Company)
+                .Where(c => c.Company.Login == login)
+                .Include(c => c.Halls).ToList();
+            return Ok(companies);
         }
 
         // GET: api/Cinemas

@@ -1,4 +1,6 @@
-﻿namespace Movie.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Movie.Models
 {
     public class Buyer : User
     {

@@ -25,7 +25,7 @@ namespace Movie
 
         public Context()
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

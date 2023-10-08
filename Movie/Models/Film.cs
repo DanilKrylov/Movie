@@ -10,5 +10,6 @@
         public string Genre { get; set; } 
         public int DurationMinutes { get; set; }
 
+        public List<FilmView> FilmViews { get; set; }
     }
 }
