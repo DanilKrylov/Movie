@@ -29,7 +29,7 @@ export const RegisterPage = () => {
             userSession.setUser({ login: data.login });
             userSession.setIsAuth(true);
             localStorage.setItem('token', res.jwtToken)
-            navigate('');
+            navigate('/');
         }).catch(() => {
             setError('login', {
                 type: 'manual',

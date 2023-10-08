@@ -44,13 +44,9 @@ namespace Movie.Controllers
         [HttpPost]
         public async Task<IActionResult> PostUser(User user)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetUser", new { id = user.Login }, user);
-            }
-            return BadRequest(ModelState);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetUser", new { id = user.Login }, user);
         }
 
         // PUT: api/Users/5

@@ -44,13 +44,9 @@ namespace Movie.Controllers
         [HttpPost]
         public async Task<IActionResult> PostHall(Hall hall)
         {
-            if (ModelState.IsValid)
-            {
                 _context.Halls.Add(hall);
                 await _context.SaveChangesAsync();
                 return CreatedAtAction("GetHall", new { id = hall.Id }, hall);
-            }
-            return BadRequest(ModelState);
         }
 
         // PUT: api/Halls/5

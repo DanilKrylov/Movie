@@ -44,13 +44,9 @@ namespace Movie.Controllers
         [HttpPost]
         public async Task<IActionResult> PostSeatBooking(SeatBooking seatBooking)
         {
-            if (ModelState.IsValid)
-            {
-                _context.SeatsBooking.Add(seatBooking);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetSeatBooking", new { id = seatBooking.Id }, seatBooking);
-            }
-            return BadRequest(ModelState);
+            _context.SeatsBooking.Add(seatBooking);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetSeatBooking", new { id = seatBooking.Id }, seatBooking);
         }
 
         // PUT: api/SeatBookings/5

@@ -44,13 +44,9 @@ namespace Movie.Controllers
         [HttpPost]
         public async Task<IActionResult> PostBuyer(Buyer buyer)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Buyers.Add(buyer);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetBuyer", new { id = buyer.Login }, buyer);
-            }
-            return BadRequest(ModelState);
+            _context.Buyers.Add(buyer);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetBuyer", new { id = buyer.Login }, buyer);
         }
 
         // PUT: api/Buyers/5

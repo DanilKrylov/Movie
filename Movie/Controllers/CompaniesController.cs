@@ -44,13 +44,9 @@ namespace Movie.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCompany(Company company)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Companies.Add(company);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetCompany", new { id = company.Login }, company);
-            }
-            return BadRequest(ModelState);
+            _context.Companies.Add(company);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetCompany", new { id = company.Login }, company);
         }
 
         // PUT: api/Companies/5

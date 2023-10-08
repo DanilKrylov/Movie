@@ -44,13 +44,9 @@ namespace Movie.Controllers
         [HttpPost]
         public async Task<IActionResult> PostFilmView(FilmView filmView)
         {
-            if (ModelState.IsValid)
-            {
                 _context.FilmViews.Add(filmView);
                 await _context.SaveChangesAsync();
                 return CreatedAtAction("GetFilmView", new { id = filmView.Id }, filmView);
-            }
-            return BadRequest(ModelState);
         }
 
         // PUT: api/FilmViews/5

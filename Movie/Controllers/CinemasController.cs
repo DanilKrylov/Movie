@@ -61,13 +61,9 @@ namespace Movie.Controllers
         [HttpPost]
         public async Task<ActionResult<Cinema>> PostCinema(Cinema cinema)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Cinemas.Add(cinema);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetCinema", new { id = cinema.Id }, cinema);
-            }
-            return BadRequest(ModelState);
+            _context.Cinemas.Add(cinema);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetCinema", new { id = cinema.Id }, cinema);
         }
 
         // PUT: api/Cinemas/5
