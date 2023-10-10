@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from '.';
 import { check } from './http/userAPI';
 import { observer } from 'mobx-react';
+import { FilmsPage } from './pages/FilmPage/FilmPage';
 
 const App = observer(() => {
   const { userSession } = useContext(Context)
@@ -26,6 +27,7 @@ const App = observer(() => {
   return (
     <BrowserRouter basename="/">
       <Routes>
+        <Route path='/films' element={<FilmsPage></FilmsPage>}></Route>
         <Route path='/login' element={<LoginPage></LoginPage>}></Route>
         <Route path='/reg' element={<RegisterPage></RegisterPage>}></Route>
         <Route index element={<CompanyPage></CompanyPage>}></Route>

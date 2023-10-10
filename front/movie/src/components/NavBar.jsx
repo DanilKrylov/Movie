@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import React, { useContext } from 'react'
-import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
+import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Context } from '..'
 
@@ -22,6 +22,8 @@ export const NavBar = observer(() => {
               <Nav.Link as={Link} to="/reg">Register</Nav.Link>
             </Nav>) : (
             <Nav className="me-auto">
+              <Nav.Link as={Link} to="/">Cinemas</Nav.Link>
+              <Nav.Link as={Link} to="/films">Films</Nav.Link>
               <Nav.Link as={Link} onClick={logout} to="/login">Logout</Nav.Link>
             </Nav>
           )}
