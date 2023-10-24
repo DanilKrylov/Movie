@@ -7,7 +7,5 @@
         public string Address { get; set; }
 
         public byte[] Logo { get; set; }
-
-        public List<Cinema> Cinemas { get; set;}
     }
 }

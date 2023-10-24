@@ -32,8 +32,7 @@ namespace Movie.Controllers
         public ActionResult<Company> GetCompanyInfo()
         {
             var login = User.Identity.Name;
-            var company = _context.Companies.Include(c => c.Cinemas)
-                .ThenInclude(c => c.Halls).First(c => c.Login == login);
+            var company = _context.Companies.First(c => c.Login == login);
             return Ok(company);
         }
 

@@ -51,7 +51,7 @@ export const AccountPage = () => {
       const info = res.data;
       console.log(info)
       setInfo(res.data);
-    });
+    }).catch(c => navigate('/'));
   }, []);
 
   console.log(editIsOpen);
@@ -157,7 +157,7 @@ export const AccountPage = () => {
                 <div style={{ height: '200px' }} className="card-body">
                   <div className="p-2 row">
                     <div className="col-sm-3">
-                      <p className="mb-0">name</p>
+                      <p className="mb-0">Name</p>
                     </div>
                     <div className="col-sm-9">
                       <p className="text-muted mb-0">{info?.name}</p>
@@ -165,7 +165,7 @@ export const AccountPage = () => {
                   </div>
                   <div className="p-2 row">
                     <div className="col-sm-3">
-                      <p className="mb-0">address</p>
+                      <p className="mb-0">Address</p>
                     </div>
                     <div className="col-sm-9">
                       <p className="text-muted mb-0">{info?.address}</p>
@@ -173,7 +173,7 @@ export const AccountPage = () => {
                   </div>
                   <div className="p-2 row">
                     <div className="col-sm-3">
-                      <p className="mb-0">login</p>
+                      <p className="mb-0">Login</p>
                     </div>
                     <div className="col-sm-9">
                       <p className="text-muted mb-0">{info?.login}</p>
@@ -199,7 +199,7 @@ export const AccountPage = () => {
                           <p className="mb-0">Cinemas count</p>
                         </div>
                         <div className="col-sm-6">
-                          <p className="text-muted mb-0">{info?.cinemas.length}</p>
+                          <p className="text-muted mb-0">{info?.cinemas?.length}</p>
                         </div>
                       </div>
                     </div>

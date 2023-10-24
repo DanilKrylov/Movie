@@ -7,9 +7,9 @@ import styles from './NavBar.module.css'
 
 export const NavBar = observer(() => {
   const { userSession } = useContext(Context);
-  console.log(userSession.user)
 
   const logout = () => {
+    localStorage.setItem('token', null)
     userSession.setIsAuth(false)
   }
   
@@ -25,8 +25,6 @@ export const NavBar = observer(() => {
               <Nav.Link as={Link} to="/reg">Register</Nav.Link>
             </Nav>) : (
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">Cinemas</Nav.Link>
-              <Nav.Link as={Link} to="/films">Films</Nav.Link>
               <Nav.Link as={Link} onClick={logout} to="/login">Logout</Nav.Link>
             </Nav>
           )}
