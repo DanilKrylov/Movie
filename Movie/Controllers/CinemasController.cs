@@ -25,7 +25,7 @@ namespace Movie.Controllers
         // GET: api/Companies
         [Authorize]
         [HttpGet("forCompany")]
-        public ActionResult<IEnumerable<Company>> GetCompanies()
+        public ActionResult<IEnumerable<Company>> GetCinemasForCompany()
         {
             var login = User.Identity.Name;
             var companies = _context.Cinemas

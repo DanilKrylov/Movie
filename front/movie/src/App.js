@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from '.';
 import { check } from './http/userAPI';
 import { observer } from 'mobx-react';
+import { AccountPage } from './pages/account/AccountPage';
 
 const App = observer(() => {
   const { userSession } = useContext(Context)
@@ -28,6 +29,7 @@ const App = observer(() => {
       <Routes>
         <Route path='/login' element={<LoginPage></LoginPage>}></Route>
         <Route path='/reg' element={<RegisterPage></RegisterPage>}></Route>
+        <Route path='/profile' element={<AccountPage></AccountPage>}></Route>
         <Route index element={<CompanyPage></CompanyPage>}></Route>
       </Routes>
     </BrowserRouter>
