@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 
 const CinemaItem = ({ cinema, onDelete }) => {
+  const navigate = useNavigate(); 
   const { id, name, location, description, halls } = cinema;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -26,8 +27,11 @@ const CinemaItem = ({ cinema, onDelete }) => {
         <p className="card-text">Location: {location}</p>
         <p className="card-text">Description: {description}</p>
         <p className="card-text">Hall Count: {halls.length}</p>
-        <Button variant="danger" onClick={handleRemoveClick}>
+        <Button className="m-1" variant="danger" onClick={handleRemoveClick}>
           Remove
+        </Button>
+        <Button className="m-1" onClick={() => navigate("cinema/" + cinema.id)}>
+          More info
         </Button>
         <DeleteConfirmationModal
           show={showDeleteModal}

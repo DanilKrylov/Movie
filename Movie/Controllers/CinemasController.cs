@@ -47,7 +47,8 @@ namespace Movie.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cinema>> GetCinema(int id)
         {
-            var cinema = await _context.Cinemas.FindAsync(id);
+            var cinema = await _context.Cinemas
+                .Include(c => c.Halls).FirstOrDefaultAsync(c => c.Id == id);
 
             if (cinema == null)
             {
