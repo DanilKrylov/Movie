@@ -31,6 +31,7 @@ const App = observer(() => {
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route path="/cinema/:id" element={<CinemaPage></CinemaPage>}></Route>
         <Route path="/reg" element={<RegisterPage></RegisterPage>}></Route>
+        <Route path='/profile' element={<AccountPage></AccountPage>}></Route>
         <Route index element={<CompanyPage></CompanyPage>}></Route>
       </Routes>
     </BrowserRouter>
