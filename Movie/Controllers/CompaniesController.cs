@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie.Models;
 using System.Collections.Generic;
@@ -18,7 +19,6 @@ namespace Movie.Controllers
             _context = context;
         }
 
-        // GET: api/Companies
         [HttpGet]
         public ActionResult<IEnumerable<Company>> GetCompanies()
         {
@@ -26,7 +26,16 @@ namespace Movie.Controllers
             return Ok(companies);
         }
 
-        // GET: api/Companies/5
+        [HttpGet("info")]
+        [Authorize]
+        public  ActionResult<Company> GetCompanyInfo()
+        {
+            var login = User.Identity.Name;
+            var company = _context.Companies.Include(c => c.Cinemas)
+                .ThenInclude(c => c.Halls).First(c => c.Login == login);
+            return Ok(company);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<Company> GetCompany(string id)
         {
@@ -40,7 +49,6 @@ namespace Movie.Controllers
             return Ok(company);
         }
 
-        // POST: api/Companies
         [HttpPost]
         public async Task<IActionResult> PostCompany(Company company)
         {
@@ -49,7 +57,6 @@ namespace Movie.Controllers
             return CreatedAtAction("GetCompany", new { id = company.Login }, company);
         }
 
-        // PUT: api/Companies/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCompany(string id, Company company)
         {
@@ -79,7 +86,6 @@ namespace Movie.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Companies/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompany(string id)
         {

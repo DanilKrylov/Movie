@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react'
 import React, { useContext } from 'react'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Context } from '..'
+import styles from './NavBar.module.css'
 
 export const NavBar = observer(() => {
   const { userSession } = useContext(Context);
@@ -11,6 +12,8 @@ export const NavBar = observer(() => {
   const logout = () => {
     userSession.setIsAuth(false)
   }
+  
+  const navigate = useNavigate()
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -28,7 +31,7 @@ export const NavBar = observer(() => {
             </Nav>
           )}
         
-        {userSession.isAuth && <div>{userSession.user?.login}</div>}
+        {userSession.isAuth && <div onClick={() => navigate('/profile')} className={styles.toprofile}>{userSession.user?.login}</div>}
       </Container>
     </Navbar>
   )

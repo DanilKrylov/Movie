@@ -1,14 +1,11 @@
-import { LoginPage } from "./pages/auth/LoginPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { RegisterPage } from "./pages/auth/RegisterPage";
-import { CompanyPage } from "./pages/company/CompanyPage";
-import { useContext, useEffect, useState } from "react";
-import { Context } from ".";
-import { check } from "./http/userAPI";
-import { observer } from "mobx-react";
-import { FilmsPage } from "./pages/FilmPage/FilmPage";
-import { NavBar } from "./components/NavBar";
-import CinemaPage from "./pages/Cinema/CinemaPage";
+import { LoginPage } from './pages/auth/LoginPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RegisterPage } from './pages/auth/RegisterPage';
+import { CompanyPage } from './pages/company/CompanyPage';
+import { useContext, useEffect, useState } from 'react';
+import { Context } from '.';
+import { check } from './http/userAPI';
+import { observer } from 'mobx-react';
 
 const App = observer(() => {
   const { userSession } = useContext(Context);
