@@ -36,11 +36,6 @@ const CinemaPage = () => {
   };
 
   const handleAddHall = () => {
-    // Implement hall addition logic here
-    // After adding the hall, you can fetch the updated cinema data if needed
-    // Example: $authHost.post("Halls", { name: newHallName, cinemaId: id }).then(...)
-    // Then update the state with the new data
-    // Finally, close the modal
     handleCloseAddModal();
   };
 
@@ -55,24 +50,20 @@ const CinemaPage = () => {
   };
 
   const handleSeatClick = (row, seat) => {
-    // Check if the seat is already selected
     const isSeatSelected = selectedSeats.some(
       (s) => s.row === row && s.seat === seat
     );
 
     if (isSeatSelected) {
-      // Deselect the seat
       setSelectedSeats(
         selectedSeats.filter((s) => !(s.row === row && s.seat === seat))
       );
     } else {
-      // Select the seat
       setSelectedSeats([...selectedSeats, { row, seat }]);
     }
   };
 
   const handleCreateHall = () => {
-    // Create the hall with selectedSeats
     const hallData = {
       name: hallName,
       cinemaId: id, // Assuming you have the cinema id in scope

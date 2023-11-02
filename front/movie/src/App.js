@@ -6,6 +6,9 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from '.';
 import { check } from './http/userAPI';
 import { observer } from 'mobx-react';
+import { FilmsPage } from './pages/FilmPage/FilmPage';
+import { AccountPage } from './pages/account/AccountPage';
+import CinemaPage from './pages/Cinema/CinemaPage';
 
 const App = observer(() => {
   const { userSession } = useContext(Context);

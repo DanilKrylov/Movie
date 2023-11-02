@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import React, { useContext } from 'react'
 import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '..'
 import styles from './NavBar.module.css'
 
