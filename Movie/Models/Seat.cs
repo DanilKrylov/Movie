@@ -6,6 +6,7 @@
         public int RowNumber { get; set; }
         public int SeatNumber { get; set; }
         public int HallId { get; set; }
+        public bool IsVIP { get; set; }
 
         public Hall Hall { get; set; }
     }

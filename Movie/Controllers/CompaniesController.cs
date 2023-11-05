@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie.Models;
+using Movie.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Movie.Controllers
 
         [HttpGet("info")]
         [Authorize]
-        public  ActionResult<Company> GetCompanyInfo()
+        public ActionResult<Company> GetCompanyInfo()
         {
             var login = User.Identity.Name;
             var company = _context.Companies.Include(c => c.Cinemas)
@@ -49,41 +50,24 @@ namespace Movie.Controllers
             return Ok(company);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PostCompany(Company company)
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> PutCompany([FromForm]EditCompanyViewModel company)
         {
-            _context.Companies.Add(company);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetCompany", new { id = company.Login }, company);
-        }
+            var login = User.Identity.Name;
+            var dbCompany = await _context.Companies.FirstAsync(m => m.Login == login);
+            dbCompany.Name = company.Name ?? dbCompany.Name;
+            dbCompany.Address = company.Address ?? dbCompany.Address;
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompany(string id, Company company)
-        {
-            if (id != company.Login)
+            if(company.Logo != null)
             {
-                return BadRequest();
+                using var stream = new MemoryStream();
+                company.Logo.CopyTo(stream);
+                var newLogo = stream.ToArray();
+                dbCompany.Logo = newLogo;
             }
-
-            _context.Entry(company).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CompanyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            _context.SaveChanges();
+            return Ok();
         }
 
         [HttpDelete("{id}")]

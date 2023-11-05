@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode'
 import { $authHost, $host } from './httpService';
 
 export const registration = async (data) => {
-    const response = (await $host.post('Auth/registerCinema', data)).data
+    const response = (await $host.post('Auth/registerCompany', data)).data
     return response;
 }
 

@@ -24,7 +24,7 @@ namespace Movie.Controllers
             return Ok(_authService.Login(viewModel.Login, viewModel.Password));
         }
 
-        [HttpPost("registerCinema")]
+        [HttpPost("registerCompany")]
         public async Task<ActionResult> Register([FromBody] RegisterViewModel registerModel)
         {
             _context.Companies.Add(new Company
