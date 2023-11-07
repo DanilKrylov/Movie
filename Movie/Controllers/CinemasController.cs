@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie.Models;
+using Movie.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,43 +59,35 @@ namespace Movie.Controllers
             return Ok(cinema);
         }
 
-        // POST: api/Cinemas
         [HttpPost]
-        public async Task<ActionResult<Cinema>> PostCinema(Cinema cinema)
+        public async Task<ActionResult<Cinema>> PostCinema([FromForm]CinemaPostModel cinema)
         {
-            _context.Cinemas.Add(cinema);
+            var cinemaModel = new Cinema()
+            {
+                Location = cinema.Location,
+                Logo = FormFileByteConverter.Convert(cinema.Logo),
+                CompanyLogin = cinema.CompanyLogin,
+                Description = cinema.Description,
+                Name = cinema.Name,
+            };
+
+            _context.Cinemas.Add(cinemaModel);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetCinema", new { id = cinema.Id }, cinema);
+            return CreatedAtAction("GetCinema", new { id = cinemaModel.Id }, cinema);
         }
 
-        // PUT: api/Cinemas/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCinema(int id, Cinema cinema)
+        [HttpPut]
+        public async Task<IActionResult> PutCinema(EditCinemaModel editModel)
         {
-            if (id != cinema.Id)
-            {
-                return BadRequest();
-            }
+            var cinema = _context.Cinemas.First(c => c.Id == editModel.Id);
+            cinema.Name = editModel.Name;
+            cinema.Location = editModel.Location;
+            cinema.Description = editModel.Description;
+            cinema.Logo = FormFileByteConverter.Convert(editModel.Logo);
 
-            _context.Entry(cinema).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CinemaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
         // DELETE: api/Cinemas/5
