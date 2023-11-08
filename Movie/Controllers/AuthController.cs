@@ -40,6 +40,22 @@ namespace Movie.Controllers
             return Ok(_authService.Login(registerModel.Login, registerModel.Password));
         }
 
+        [HttpPost("registerBuyer")]
+        public async Task<ActionResult> Register([FromBody] RegisterBuyerModel registerModel)
+        {
+            _context.Buyers.Add(new Buyer
+            {
+                Email = registerModel.Email,
+                Login = registerModel.Login,
+                Phone = registerModel.Phone,
+                Password = registerModel.Password,
+            });
+
+            _context.SaveChanges();
+
+            return Ok(_authService.Login(registerModel.Login, registerModel.Password));
+        }
+
         [Authorize]
         [HttpPost("checkSignIn")]
         public IActionResult Check()
@@ -53,6 +69,14 @@ namespace Movie.Controllers
             public string Password { get; set; }
             public string Name { get; set; }
             public string Address { get; set; }
+        }
+
+        public class RegisterBuyerModel
+        {
+            public string Login { get; set; }
+            public string Password { get; set; }
+            public string Email { get; set; }
+            public string Phone { get; set; }
         }
 
         public class LoginViewModel

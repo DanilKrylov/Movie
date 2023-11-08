@@ -11,5 +11,6 @@
     <WebStackScaffolding_DbContextTypeFullName>Movie.Context</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>False</WebStackScaffolding_IsViewGenerationSelected>
+    <NameOfLastUsedPublishProfile>C:\Users\krylov\Source\Repos\DanilKrylov\Movie\Movie\Properties\PublishProfiles\antontykhonov-001-site1 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

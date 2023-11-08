@@ -77,13 +77,16 @@ namespace Movie.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutCinema(EditCinemaModel editModel)
+        public async Task<IActionResult> PutCinema([FromForm] EditCinemaModel editModel)
         {
             var cinema = _context.Cinemas.First(c => c.Id == editModel.Id);
             cinema.Name = editModel.Name;
             cinema.Location = editModel.Location;
             cinema.Description = editModel.Description;
-            cinema.Logo = FormFileByteConverter.Convert(editModel.Logo);
+            if(editModel.Logo != null)
+            {
+                cinema.Logo = FormFileByteConverter.Convert(editModel.Logo);
+            }
 
             await _context.SaveChangesAsync();
 

@@ -11,6 +11,7 @@ export const NavBar = observer(() => {
 
   const logout = () => {
     userSession.setIsAuth(false)
+    localStorage.clear()
   }
   
   const navigate = useNavigate()
