@@ -374,7 +374,7 @@ export const CompanyCinemasPage = () => {
           <div className="row justify-content-center text-center">
           <SearchBar setSearchString={setSearchString} handleShowCreateModal={handleShowCreateModal}></SearchBar>
           </div>
-          <div className="row">
+          <div className="cinemas-list">
             {filteredCinemas.map((cinema) => (
               <CinemaItem
                 handleEditClick={(id) => {

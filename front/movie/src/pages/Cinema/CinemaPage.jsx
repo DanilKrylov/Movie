@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Container, Form, Modal } from "react-bootstrap";
-import { $authHost } from "../../http/httpService";
+import { $authHost, $host } from "../../http/httpService";
 import { NavBar } from "../../components/NavBar";
 import "./CinemaPage.css";
 
@@ -17,7 +17,6 @@ const CinemaPage = () => {
   const [hallName, setHallName] = useState("");
 
   useEffect(() => {
-    // Fetch data about the cinema and its halls using the cinema ID
     $authHost.get("Cinemas/" + id).then((response) => {
       setCinema(response.data);
     });
@@ -32,16 +31,12 @@ const CinemaPage = () => {
   };
 
   const handleGridSizeChange = (e) => {
+    setSelectedSeats([])
     setGridSize(parseInt(e.target.value, 10));
   };
 
   const handleAddHall = () => {
-    handleCloseAddModal();
-  };
-
-  const handleShowDeleteModal = (hall) => {
-    setHallToDelete(hall);
-    setShowDeleteModal(true);
+    handleCreateHall()
   };
 
   const handleCloseDeleteModal = () => {
@@ -49,31 +44,30 @@ const CinemaPage = () => {
     setShowDeleteModal(false);
   };
 
-  const handleSeatClick = (row, seat) => {
+  const handleSeatClick = (rowNumber, seatNumber) => {
     const isSeatSelected = selectedSeats.some(
-      (s) => s.row === row && s.seat === seat
+      (s) => s.rowNumber === rowNumber && s.seatNumber === seatNumber
     );
 
     if (isSeatSelected) {
       setSelectedSeats(
-        selectedSeats.filter((s) => !(s.row === row && s.seat === seat))
+        selectedSeats.filter((s) => !(s.rowNumber === rowNumber && s.seatNumber === seatNumber))
       );
     } else {
-      setSelectedSeats([...selectedSeats, { row, seat }]);
+      setSelectedSeats([...selectedSeats, { rowNumber, seatNumber }]);
     }
   };
 
   const handleCreateHall = () => {
     const hallData = {
       name: hallName,
-      cinemaId: id, // Assuming you have the cinema id in scope
+      cinemaId: id,
       seats: selectedSeats,
+      gridSize: gridSize
     };
 
-    // Implement logic to create the hall with seat data
-    // Example: $authHost.post("Halls", hallData).then(...)
+    $host.post('halls', hallData)
 
-    // Close the modal and reset the form
     handleCloseAddModal();
     setSelectedSeats([]);
     setHallName("");
@@ -81,17 +75,11 @@ const CinemaPage = () => {
 
   const handleDeleteHall = () => {
     if (hallToDelete) {
-      // Implement hall deletion logic here
-      // After deleting the hall, you can fetch the updated cinema data if needed
-      // Example: $authHost.delete("Halls/" + hallToDelete.id).then(...)
-      // Then update the state with the new data
-      // Finally, close the modal
       handleCloseDeleteModal();
     }
   };
 
   if (!cinema) {
-    // Handle loading or error state
     return <p>Loading...</p>;
   }
 
@@ -99,28 +87,64 @@ const CinemaPage = () => {
     <div>
       <NavBar></NavBar>
       <div className="container mt-4">
-        <h2>{cinema.name}</h2>
-        <p>Location: {cinema.location}</p>
-        <p>Description: {cinema.description}</p>
-        <h3>Halls</h3>
-        {cinema.halls.map((hall) => (
-          <div key={hall.id} className="card mb-3">
-            <div className="card-body">
-              <h4 className="card-title">{hall.name}</h4>
-              {/* Add hall details here */}
-              <Button
-                className="m-1"
-                variant="danger"
-                onClick={() => handleShowDeleteModal(hall)}
-              >
-                Remove
-              </Button>
+        <div className="container">
+          <div className="card">
+            <div className="container-fliud">
+              <div className="wrapper row">
+                <div className="preview col-md-6">
+
+                  <div className="preview-pic tab-content">
+                    <div className="tab-pane active" id="pic-1"><img src={"data:image/png;base64," + cinema.logo} /></div>
+                  </div>
+                </div>
+                <div className="details col-md-6">
+                  <h3 className="product-title">{cinema.name}</h3>
+                  <h4 className="price">Location: {cinema.location}</h4>
+                  <p className="product-description">{cinema.description}</p>
+
+
+
+                  <Button className="m-2" variant="primary" onClick={handleShowAddModal}>
+                    Add Hall
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+
+        {cinema.halls?.map(hall => (
+          <div className="container">
+            <div className="card">
+              <div className="container-fliud">
+                  <h3 className="product-title">{hall.name}</h3>
+                  <div
+                    style={{ width: `${10 * (gridSize - 1) + 40 * gridSize}px` }}
+                    className="seat-grid"
+                  >
+                    {Array.from({ length: gridSize }).map((_, row) =>
+                      Array.from({ length: gridSize }).map((_, seat) => {
+                        const isSeatSelected = hall.seats.some(
+                          (s) => s.rowNumber === row && s.seatNumber === seat
+                        );
+                        return (
+                          <div
+                            key={`seat-${seat}`}
+                            style={!isSeatSelected ? {} : {}}
+                            className={`seat ${isSeatSelected ? "selected" : ""}`}
+                            onClick={() => handleSeatClick(row, seat)}
+                          >
+                            {row + 1}-{seat + 1}
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                  {console.log(hall)}
+                </div>
+              </div>
+          </div>
         ))}
-        <Button className="m-1" variant="primary" onClick={handleShowAddModal}>
-          Add Hall
-        </Button>
 
         <Modal
           dialogClassName={gridSize >= 10 && "modal-content-10"}
@@ -135,6 +159,7 @@ const CinemaPage = () => {
               <Form.Group controlId="hallName" className="mb-3">
                 <Form.Label>Hall Name</Form.Label>
                 <Form.Control
+                  required
                   type="text"
                   placeholder="Enter hall name"
                   value={hallName}
@@ -153,7 +178,6 @@ const CinemaPage = () => {
                       {index + 5}x{index + 5}
                     </option>
                   ))}
-                  {/* Add more grid size options */}
                 </Form.Control>
               </Form.Group>
               <div className="gridWrapper">
@@ -164,7 +188,7 @@ const CinemaPage = () => {
                   {Array.from({ length: gridSize }).map((_, row) =>
                     Array.from({ length: gridSize }).map((_, seat) => {
                       const isSeatSelected = selectedSeats.some(
-                        (s) => s.row === row && s.seat === seat
+                        (s) => s.rowNumber === row && s.seatNumber === seat
                       );
                       return (
                         <div

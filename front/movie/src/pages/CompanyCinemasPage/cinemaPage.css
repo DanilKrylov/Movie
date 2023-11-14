@@ -31,6 +31,8 @@ a:hover {
 
 .section-products .single-product {
     margin-bottom: 26px;
+    display: flex;
+    justify-content: center;
 }
 
 .section-products .single-product .part-1 {
@@ -157,4 +159,9 @@ a:hover {
     height: 1px;
     background-color: #444444;
     transform: translateY(-50%);
+}
+
+.cinemas-list{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
