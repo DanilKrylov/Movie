@@ -58,6 +58,8 @@ const CinemaPage = () => {
     }
   };
 
+  console.log(selectedSeats)
+
   const handleCreateHall = () => {
     const hallData = {
       name: hallName,
