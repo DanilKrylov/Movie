@@ -119,11 +119,11 @@ const CinemaPage = () => {
               <div className="container-fliud">
                   <h3 className="product-title">{hall.name}</h3>
                   <div
-                    style={{ width: `${10 * (gridSize - 1) + 40 * gridSize}px` }}
+                    style={{ width: `${10 * (hall.gridSize - 1) + 40 * hall.gridSize}px` }}
                     className="seat-grid"
                   >
-                    {Array.from({ length: gridSize }).map((_, row) =>
-                      Array.from({ length: gridSize }).map((_, seat) => {
+                    {Array.from({ length: hall.gridSize }).map((_, row) =>
+                      Array.from({ length: hall.gridSize }).map((_, seat) => {
                         const isSeatSelected = hall.seats.some(
                           (s) => s.rowNumber === row && s.seatNumber === seat
                         );

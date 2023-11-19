@@ -31,7 +31,7 @@ namespace Movie
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=SQL6031.site4now.net;Initial Catalog=db_aa1317_db;User Id=db_aa1317_db_admin;Password=123456aA_");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BSdatabase;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }
