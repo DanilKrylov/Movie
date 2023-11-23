@@ -31,7 +31,7 @@ namespace Movie
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BSdatabase;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Danyl_Movie;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }

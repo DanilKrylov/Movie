@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie.Models;
+using Movie.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,8 +43,9 @@ namespace Movie.Controllers
 
         // POST: api/Films
         [HttpPost]
-        public async Task<IActionResult> PostFilm(Film film)
+        public async Task<IActionResult> PostFilm([FromForm] FilmPostModel model)
         {
+            Film film = model.ToModel();
             _context.Films.Add(film);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetFilm", new { id = film.Id }, film);
@@ -51,14 +53,14 @@ namespace Movie.Controllers
 
         // PUT: api/Films/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFilm(int id, Film film)
+        public async Task<IActionResult> PutFilm(int id, [FromForm] FilmPutModel model)
         {
-            if (id != film.Id)
+            if (id != model.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(film).State = EntityState.Modified;
+            _context.Entry(model.ToModel()).State = EntityState.Modified;
 
             try
             {

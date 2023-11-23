@@ -58,7 +58,9 @@ namespace Movie.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(hall).State = EntityState.Modified;
+            var dbSeats = _context.Seats.Where(m => m.HallId == id);
+            _context.RemoveRange(dbSeats);
+            _context.Halls.Update(hall);
 
             try
             {

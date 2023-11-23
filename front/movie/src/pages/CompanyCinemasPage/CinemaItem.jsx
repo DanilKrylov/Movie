@@ -10,7 +10,7 @@ export const CinemaItem = ({ cinema, handleRemoveClick, handleEditClick }) => {
             <div id="product-1" className="single-product">
                 <div>
 
-                    <div className="part-1" style={{ backgroundImage: "url(data:image/png;base64," + cinema.logo + ")" }}>
+                    <div className="part-1" style={{ backgroundImage: "url(data:image/png;base64," + cinema.logo + ")", backgroundPosition: '0', backgroundSize: '100%' }}>
                         <ul>
                             <li><a onClick={() => handleEditClick(cinema.id)}><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></a></li>
                             <li><a onClick={() => handleRemoveClick(cinema.id)}><FontAwesomeIcon icon={faRemove}></FontAwesomeIcon></a></li>

@@ -18,6 +18,10 @@
   background-color: #cbf5b4;
 }
 
+.seat.selectedVIP {
+  background-color: #f5f4b4;
+}
+
 .seat-grid {
   display: flex;
   justify-content: space-between;

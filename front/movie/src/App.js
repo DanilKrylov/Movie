@@ -9,6 +9,7 @@ import { observer } from 'mobx-react';
 import { FilmsPage } from './pages/FilmPage/FilmPage';
 import { AccountPage } from './pages/account/AccountPage';
 import CinemaPage from './pages/Cinema/CinemaPage';
+import FilmViewsPage from './pages/FilmViewsPage/FilmViewsPage';
 
 const App = observer(() => {
   const { userSession } = useContext(Context);
@@ -30,6 +31,7 @@ const App = observer(() => {
   return (
     <BrowserRouter basename="/">
       <Routes>
+        <Route path="/filmViews" element={<FilmViewsPage></FilmViewsPage>}></Route>
         <Route path="/films" element={<FilmsPage></FilmsPage>}></Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route path="/cinema/:id" element={<CinemaPage></CinemaPage>}></Route>

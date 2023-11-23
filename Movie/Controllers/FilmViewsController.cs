@@ -22,7 +22,7 @@ namespace Movie.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<FilmView>> GetFilmViews()
         {
-            var filmViews = _context.FilmViews.ToList();
+            var filmViews = _context.FilmViews.Include(c => c.Film).Include(c => c.Hall).ThenInclude(c => c.Cinema).ToList();
             return Ok(filmViews);
         }
 

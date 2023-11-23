@@ -28,6 +28,7 @@ export const NavBar = observer(() => {
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Cinemas</Nav.Link>
               <Nav.Link as={Link} to="/films">Films</Nav.Link>
+              <Nav.Link as={Link} to="/filmViews">Film Views</Nav.Link>
               <Nav.Link as={Link} onClick={logout} to="/login">Logout</Nav.Link>
             </Nav>
           )}
